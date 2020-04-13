@@ -7,33 +7,24 @@ namespace WpfGuiApp.Tools
 {
     public class ViewManager
     {
-        private ServiceProvider container;
+        private readonly IServiceProvider _container;
 
-        public ViewManager()
+        public ViewManager(IServiceProvider container)
         {
-        }
-
-        public ViewManager(ServiceProvider container)
-        {
-            this.container = container;
+            this._container = container;
         }
 
         public (TVm, TWindow) GetWindow<TVm, TWindow>()
             where TVm : ViewModelBase
             where TWindow : Window, new()
         {
-            var vm = container.GetService<TVm>();
+            var vm = _container.GetService<TVm>();
             var view = new TWindow
             {
                 DataContext = vm,
             };
 
             return (vm, view);
-        }
-
-        internal void SetContainer(ServiceProvider container)
-        {
-            this.container = container;
         }
     }
 }

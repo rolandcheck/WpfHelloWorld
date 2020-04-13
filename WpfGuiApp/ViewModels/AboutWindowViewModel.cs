@@ -5,30 +5,34 @@ namespace WpfGuiApp.ViewModels
 {
     public class AboutWindowViewModel : ViewModelBase
     {
-        public AboutWindowViewModel()
+        private int _simpleProp = 1;
+
+        public int SimpleProp
         {
+            get => _simpleProp;
+            set
+            {
+                if (_simpleProp == value) return;
+                _simpleProp = value;
+                OnPropertyChanged();
+            }
         }
+
+        public AboutWindowViewModel() { }
 
         public AboutWindowViewModel(IMyService myService)
         {
             _myService = myService;
         }
 
-        private int _buttonText = 1;
         private readonly IMyService _myService;
 
         public ICommand MyCommandAgain =>
-            new RelayCommand((arg) => ButtonText = _myService.DifficultCalculations(_buttonText, _buttonText));
+            new RelayCommand(arg => DifficultCalculations());
 
-        public int ButtonText
+        private int DifficultCalculations()
         {
-            get => _buttonText;
-            set
-            {
-                if (_buttonText == value) return;
-                _buttonText = value;
-                OnPropertyChanged();
-            }
+            return SimpleProp = _myService.DifficultCalculations(_simpleProp, _simpleProp);
         }
     }
 }

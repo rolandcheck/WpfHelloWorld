@@ -22,18 +22,17 @@ namespace WpfGuiApp.ViewModels
 
         private readonly ViewManager _viewManager;
 
-        public MainWindowViewModel()
-        {
-        }
+        public MainWindowViewModel() { }
 
         public MainWindowViewModel(ViewManager viewManager)
         {
-            this._viewManager = viewManager;
+            _viewManager = viewManager;
         }
 
-        public ICommand MyCommand => new RelayCommand((arg) => Count++, (arg) => Count < 10);
 
-        public ICommand NewWindow => new RelayCommand((arg) =>
+        public ICommand MyCommand => new RelayCommand(_ => Count++, arg => Count < 10);
+
+        public ICommand NewWindow => new RelayCommand(arg =>
         {
             var (vm, window) = _viewManager.GetWindow<AboutWindowViewModel, AboutWindow>();
             window.Show();

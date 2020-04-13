@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using WpfGuiApp.Tools;
 using WpfGuiApp.ViewModels;
@@ -13,23 +15,24 @@ namespace WpfGuiApp
     {
         public App()
         {
-            var viewManager = new ViewManager();
-
             var services = new ServiceCollection();
+
             // viewModels
             services.AddTransient<AboutWindowViewModel>();
             services.AddTransient<MainWindowViewModel>();
 
             // services
             services.AddTransient<IMyService, MyService>();
+            services.AddSingleton<ViewManager>(); // wanna have only one manager
 
-            // workaround
-            services.AddSingleton(viewManager);
 
+            // building
             var container = services.BuildServiceProvider();
-            viewManager.SetContainer(container);
 
 
+            // show main window
+            var viewManager = container.GetService<ViewManager>();
+            
             var (_, mainWindow) = viewManager.GetWindow<MainWindowViewModel, MainWindow>();
             mainWindow.ShowDialog(); 
         }
