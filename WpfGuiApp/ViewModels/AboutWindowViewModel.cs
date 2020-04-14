@@ -10,12 +10,7 @@ namespace WpfGuiApp.ViewModels
         public int SimpleProp
         {
             get => _simpleProp;
-            set
-            {
-                if (_simpleProp == value) return;
-                _simpleProp = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _simpleProp, value);
         }
 
         public AboutWindowViewModel() { }

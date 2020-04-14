@@ -10,13 +10,7 @@ namespace WpfGuiApp.ViewModels
         public int Count
         {
             get => _count;
-            set
-            {
-                if (_count == value) return;
-
-                _count = value;
-                OnPropertyChanged();
-            }
+            set => SetProperty(ref _count, value);
         }
 
 
