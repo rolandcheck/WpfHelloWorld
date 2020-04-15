@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using WpfGuiApp.Tools;
+using WpfGuiApp.Tools.Commands;
 using WpfGuiApp.Views;
 
 namespace WpfGuiApp.ViewModels
@@ -24,12 +25,21 @@ namespace WpfGuiApp.ViewModels
         }
 
 
-        public ICommand MyCommand => new RelayCommand(_ => Count++, arg => Count < 10);
+        public ICommand MyCommand => new ActionCommand(() => Count++, () => Count < 10);
 
-        public ICommand NewWindow => new RelayCommand(arg =>
+        public ICommand NewWindow => new ActionCommand(() =>
         {
             var (vm, window) = _viewManager.GetWindow<AboutWindowViewModel, AboutWindow>();
-            window.Show();
+            var res = window.ShowDialog();
+
+            switch (res)
+            {
+                case true:
+                {
+                    Count = vm.SimpleProp;
+                    break;
+                }
+            }
         });
     }
 }

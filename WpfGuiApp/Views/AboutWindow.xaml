@@ -1,4 +1,5 @@
 ﻿<Window x:Class="WpfGuiApp.Views.AboutWindow"
+        x:Name="ThisWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,7 +13,13 @@
         <vm:AboutWindowViewModel />
     </Window.DataContext>
 
-    <Grid>
-        <Button Content="{Binding SimpleProp}" Command="{Binding MyCommandAgain}" />
-    </Grid>
+    <StackPanel>
+        <Button Content="{Binding SimpleProp}" 
+                Command="{Binding MyCommandAgain}" />
+
+        <Button Content="Exit" 
+                Command="{Binding ExitCommand}" 
+                CommandParameter="{Binding ElementName=ThisWindow}"
+                Click="SafeExitClick"/>
+    </StackPanel>
 </Window>

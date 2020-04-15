@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace WpfGuiApp.Tools
+namespace WpfGuiApp.Tools.Commands
 {
-    public class RelayCommand : ICommand
+    public class ActionCommand : ICommand
     {
-        private readonly Action<object> _execute;
-        private readonly Func<object, bool> _canExecute;
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public ActionCommand(Action execute, Func<bool> canExecute = null)
         {
             _execute = execute;
             _canExecute = canExecute;
@@ -16,12 +16,12 @@ namespace WpfGuiApp.Tools
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null || _canExecute(parameter);
+            return _canExecute == null || _canExecute();
         }
 
         public void Execute(object parameter)
         {
-            _execute(parameter);
+            _execute();
         }
 
         public event EventHandler CanExecuteChanged

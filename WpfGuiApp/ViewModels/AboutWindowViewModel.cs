@@ -1,5 +1,8 @@
 ﻿using System.Windows.Input;
 using WpfGuiApp.Tools;
+using WpfGuiApp.Tools.Commands;
+using WpfGuiApp.Views;
+using WpfGuiApp.Views.Interfaces;
 
 namespace WpfGuiApp.ViewModels
 {
@@ -23,7 +26,9 @@ namespace WpfGuiApp.ViewModels
         private readonly IMyService _myService;
 
         public ICommand MyCommandAgain =>
-            new RelayCommand(arg => DifficultCalculations());
+            new ActionCommand(() => DifficultCalculations());
+
+        public ICommand ExitCommand => new RelayCommand<ICloseable>(win => win.Close(), _ => SimpleProp > 100);
 
         private int DifficultCalculations()
         {
