@@ -16,7 +16,7 @@
         <Button Content="This is button!"
                 Command="{Binding MyCommand}" />
 
-        <Button Content="This is button!"
+        <Button Content="{Binding MyValue}"
                 Command="{Binding NewWindow}" />
 
         <Label Content="{Binding Count}" />
