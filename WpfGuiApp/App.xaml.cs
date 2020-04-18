@@ -39,7 +39,7 @@ namespace WpfGuiApp
             services.AddTransient<MainWindowViewModel>();
 
             // services
-            services.AddTransient<IMyService, MyService>();
+            services.AddTransient<IMyCalculator, MyCalculator>();
             services.AddSingleton<ViewManager>(); // wanna have only one manager
 
             // read external json configurations

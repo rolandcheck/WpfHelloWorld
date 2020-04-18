@@ -18,21 +18,21 @@ namespace WpfGuiApp.ViewModels
 
         public AboutWindowViewModel() { }
 
-        public AboutWindowViewModel(IMyService myService)
+        public AboutWindowViewModel(IMyCalculator myCalculator)
         {
-            _myService = myService;
+            _myCalculator = myCalculator;
         }
 
-        private readonly IMyService _myService;
+        private readonly IMyCalculator _myCalculator;
 
         public ICommand MyCommandAgain =>
-            new ActionCommand(() => DifficultCalculations());
+            new ActionCommand(DifficultCalculations);
 
         public ICommand ExitCommand => new RelayCommand<ICloseable>(win => win.Close(), _ => SimpleProp > 100);
 
-        private int DifficultCalculations()
+        private void DifficultCalculations()
         {
-            return SimpleProp = _myService.DifficultCalculations(_simpleProp, _simpleProp);
+            SimpleProp = _myCalculator.Add(_simpleProp, _simpleProp + 1);
         }
     }
 }
