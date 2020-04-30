@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:WpfGuiApp.ViewModels"
         xmlns:local="clr-namespace:WpfGuiApp"
+        xmlns:h="clr-namespace:WpfGuiApp.FClasses"
+        xmlns:uiTools="clr-namespace:WpfGuiApp.UiTools"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
@@ -13,11 +15,18 @@
     </Window.DataContext>
 
     <StackPanel>
-        <Button Content="This is button!"
+        <Button Content="Some Actions"
                 Command="{Binding MyCommand}" />
 
-        <Button Content="{Binding MyValue}"
+        <Button Content="Open new window"
                 Command="{Binding NewWindow}" />
+
+        <ComboBox Margin="10"
+                  ItemsSource="{Binding Source={x:Static uiTools:EnumItemsProvider.IntervalValues}}"
+                  SelectedValue="{Binding SelectedIntervalType}"/>
+        
+        <ComboBox Margin="10"
+                  ItemsSource="{Binding StringsList}"/>
 
         <Label Content="{Binding Count}" />
     </StackPanel>

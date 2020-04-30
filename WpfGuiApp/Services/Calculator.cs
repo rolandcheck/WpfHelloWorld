@@ -1,4 +1,4 @@
-﻿namespace WpfGuiApp.Tools
+﻿namespace WpfGuiApp.Services
 {
     public class MyCalculator : IMyCalculator
     {

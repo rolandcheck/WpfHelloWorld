@@ -1,16 +1,30 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WpfGuiApp.FClasses;
-using WpfGuiApp.Tools;
-using WpfGuiApp.Tools.Commands;
+using WpfGuiApp.Services;
+using WpfGuiApp.UiTools.Commands;
 using WpfGuiApp.Views;
 
 namespace WpfGuiApp.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        #region **Properties**
+
         private int _count;
+        private readonly ViewManager _viewManager;
+        private readonly ILogger<MainWindowViewModel> _logger;
+        private readonly IOptions<AppSettings> _options;
+        private IntervalTypesEnum _selectedIntervalType;
+        private ObservableCollection<string> _stringsList = new ObservableCollection<string>();
+
+        public IntervalTypesEnum SelectedIntervalType
+        {
+            get => _selectedIntervalType;
+            set => SetProperty(ref _selectedIntervalType, value);
+        }
 
         public int Count
         {
@@ -18,10 +32,13 @@ namespace WpfGuiApp.ViewModels
             set => SetProperty(ref _count, value);
         }
 
-        public string MyValue { get; set; }
+        public ObservableCollection<string> StringsList
+        {
+            get => _stringsList;
+            set => SetProperty(ref _stringsList, value);
+        }
 
-        private readonly ViewManager _viewManager;
-        private readonly ILogger<MainWindowViewModel> _logger;
+        #endregion **Properties**
 
         public MainWindowViewModel() { }
 
@@ -29,34 +46,34 @@ namespace WpfGuiApp.ViewModels
         {
             _viewManager = viewManager;
             _logger = logger;
-
-            MyValue = options.Value.ComplexSettingSet.ButtonContent;
+            _options = options;
         }
 
+        #region **Commands**
+
+        public ICommand NewWindow => new ActionCommand(OpenAboutWindow);
+
+        private void OpenAboutWindow()
+        {
+            var (vm, window) = _viewManager.GetWindow<AboutWindowViewModel, AboutWindow>();
+            var res = window.ShowDialog();
+
+            // return data from vm?
+            if (res is true)
+            {
+                Count = vm.SimpleProp;
+            }
+        }
 
         public ICommand MyCommand => new ActionCommand(IncrementCount, () => Count < 10);
 
         private void IncrementCount()
         {
             Count++;
+            StringsList.Add(Count.ToString());
             _logger.LogInformation($"Count incremented, now value of Count = {Count}");
         }
 
-        public ICommand NewWindow => new ActionCommand(() =>
-        {
-            var (vm, window) = _viewManager.GetWindow<AboutWindowViewModel, AboutWindow>();
-            var res = window.ShowDialog();
-
-            switch (res)
-            {
-                case true:
-                {
-                    Count = vm.SimpleProp;
-                    break;
-                }
-            }
-        });
-
-        
+        #endregion **Commands**
     }
 }

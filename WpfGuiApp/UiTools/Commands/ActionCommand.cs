@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace WpfGuiApp.Tools.Commands
+namespace WpfGuiApp.UiTools.Commands
 {
     public class ActionCommand : ICommand
     {

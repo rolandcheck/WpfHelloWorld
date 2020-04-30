@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using WpfGuiApp.Tools;
+using WpfGuiApp.Services;
 
 namespace TestsLibrary.FServicesTests
 {

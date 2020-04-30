@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
-using WpfGuiApp.Tools;
-using WpfGuiApp.Tools.Commands;
+using WpfGuiApp.Services;
+using WpfGuiApp.UiTools.Commands;
 using WpfGuiApp.Views;
 using WpfGuiApp.Views.Interfaces;
 

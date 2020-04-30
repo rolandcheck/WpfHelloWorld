@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using WpfGuiApp.ViewModels;
 
-namespace WpfGuiApp.Tools
+namespace WpfGuiApp.Services
 {
     public class ViewManager
     {
@@ -11,7 +11,7 @@ namespace WpfGuiApp.Tools
 
         public ViewManager(IServiceProvider container)
         {
-            this._container = container;
+            _container = container;
         }
 
         public (TVm, TWindow) GetWindow<TVm, TWindow>()
