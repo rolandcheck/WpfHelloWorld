@@ -28,7 +28,7 @@ namespace WpfGuiApp
             // show main window
             var viewManager = container.GetService<ViewManager>();
             
-            var (_, mainWindow) = viewManager.GetWindow<MainWindowViewModel, MainWindow>();
+            var (_, mainWindow) = viewManager.GetWindow<MainWindowViewModel>();
             mainWindow.ShowDialog(); 
         }
 

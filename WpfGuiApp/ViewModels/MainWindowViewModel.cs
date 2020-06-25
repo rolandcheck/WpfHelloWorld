@@ -55,7 +55,7 @@ namespace WpfGuiApp.ViewModels
 
         private void OpenAboutWindow()
         {
-            var (vm, window) = _viewManager.GetWindow<AboutWindowViewModel, AboutWindow>();
+            var (vm, window) = _viewManager.GetWindow<AboutWindowViewModel>();
             var res = window.ShowDialog();
 
             // return data from vm?
